@@ -167,7 +167,6 @@ for(Data data : {datA, datB, datC, datD}){
 // Calculate chi2 value for combined dataset
 Data data_comb = datA + datB + datC + datD;
 double chi2_comp = data_comb.chi2();
-cout << "works" << endl;
 cout << "The chi2 value for the combined datasets is " << chi2_comp << "." << endl;
 
 

@@ -77,6 +77,7 @@ Data Data::operator+(Data& in){
     double y2 = in.measurement(i);
     
     out.m_data.push_back((w1 * y1 + w2 * y2) / (w1 + w2));
+    out.m_bins.push_back(in.binCenter(i));
     out.m_errors.push_back(std::sqrt(1 / (w1 + w2)));
   }
   return out;
@@ -90,10 +91,11 @@ double f(double x){
 
 // Define function for chi2 calculation
 double Data::chi2(){
-  double out;
+  double out = 0;
   for (int i = 0; i < this->size(); ++i){
     double y = this->measurement(i) - f(this->binCenter(i));
     double sig = this->error(i);
     out += y * y / (sig * sig);
-   }
+  }
+  return out;
 }
