@@ -79,3 +79,13 @@ Data Data::operator+(Data& in){
   }
   return out;
 }
+
+// Define function for chi2 calculation
+double Data::chi2(){
+  double out;
+  for (int i = 0; i < this->size(); ++i){
+    double y = this->measurement(i) – f(this->bin-center(i));
+    double sig = this->error(i);
+    out += y * y / (sig * sig);
+   }
+}
