@@ -38,6 +38,8 @@ Data::Data(const std::string& filename) {
     m_errors.push_back(uncertainties);
   }
 
+  m_name = filename;
+  
   // done! close the file
   file.close();
 
@@ -81,15 +83,16 @@ Data Data::operator+(Data& in){
 }
 
 // Define function for background 
-double f(int x){
-  return 0.005 – 0.00001 * x + 0.08 + std::exp(- 0.015 * x)
+double f(double x){
+  double out = 0.005 - 0.00001 * x + 0.08 + std::exp(- 0.015 * x);
+  return out;
 }
 
 // Define function for chi2 calculation
 double Data::chi2(){
   double out;
   for (int i = 0; i < this->size(); ++i){
-    double y = this->measurement(i) – f(this->binCenter(i));
+    double y = this->measurement(i) - f(this->binCenter(i));
     double sig = this->error(i);
     out += y * y / (sig * sig);
    }

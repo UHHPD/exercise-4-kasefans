@@ -28,12 +28,15 @@ class Data {
 
   double chi2();
 
+  std::string name() { return m_name; }
+
  private:
   Data() {}  // disallow empty data set
   void assertSizes();
   std::vector<double> m_data;
   std::vector<double> m_bins;
   std::vector<double> m_errors;
+  std::string m_name;
 };
 
 #endif
