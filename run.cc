@@ -109,8 +109,29 @@ int main() {
   cout << "checkCompatibility(A, B, 5) = " << datA.checkCompatibility(datB, 5) << endl;
   cout << "******************************************************" << endl;
 
-  // Average datasets 
-  cout << "******************************************************" << endl;
+  // Check compatibility for all datasets
+for (int sig : {2, 3}){
+  data_pro = {datA, datB, datC, datD};
+  for (Data data : {datA, datB, datC, datD}){
+    data_pro.remove(data);
+    for (Data data_comp : data_pro){
+      int out = data.checkCompatibility(data_comp, sig)
+      cout << out << “ measurements from experiment “ << data.name() << “ and “ << data_comp.name() << “ differ by more than “ << sig << “ standard deviations. << endl;
+    }
+  }
+}
+
+// Calculate chi2 value for all datasets
+for(Data data : {datA, datB, datC, datD}){
+  double out = data.chi2();
+  cout << “The chi2 value for dataset “ << data.name() << “ is “ << out << endl;
+}
+
+// Calculate chi2 value for combined dataset
+Data data_comb = datA + datB + datC + datD;
+double chi2_comp = data_comb.chi2();
+cout << “The chi2 value for the combined datasets is “ << chi2_comp << “.” << endl;
+
 
   return 0;
 }
