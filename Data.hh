@@ -24,7 +24,9 @@ class Data {
 
   int checkCompatibility(const Data& in, int n);
 
-  Data operator+(Data& in) ;
+  Data operator+(Data& in);
+
+  double chi2();
 
  private:
   Data() {}  // disallow empty data set
