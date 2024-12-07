@@ -110,20 +110,51 @@ int main() {
   cout << "checkCompatibility(A, B, 5) = " << datA.checkCompatibility(datB, 5) << endl;
   cout << "******************************************************" << endl;
 
-  // Check compatibility for all datasets
+// Check compatibility for dataset datA
 for (int sig : {2, 3}){
   list<Data> data_pro;
   for(Data data : {datA, datB, datC, datD}){
     data_pro.push_back(data);
-    }
+  }
   auto it = data_pro.begin();
-  for (Data data : {datA, datB, datC, datD}){
-    data_pro.erase(it);
-    advance(it, 1);
-    for (Data data_comp : data_pro){
-      int out = data.checkCompatibility(data_comp, sig);
-      cout << out << " measurements from experiment " << data.name() << " and " << data_comp.name() << " differ by more than " << sig << " standard deviations." << endl;
-    }
+
+  data_pro.erase(it);
+  advance(it, 1);
+  for (Data data_comp : data_pro){
+    int out = datA.checkCompatibility(data_comp, sig);
+    cout << out << " measurements from experiment " << datA.name() << " and " << data_comp.name() << " differ by more than " << sig << " standard deviations." << endl;
+  }
+}
+
+// Check compatibility for dataset datB
+for (int sig : {2, 3}){
+  list<Data> data_pro;
+  for(Data data : {datB, datC, datD}){
+    data_pro.push_back(data);
+  }
+  auto it = data_pro.begin();
+
+  data_pro.erase(it);
+  advance(it, 1);
+  for (Data data_comp : data_pro){
+    int out = datB.checkCompatibility(data_comp, sig);
+    cout << out << " measurements from experiment " << datB.name() << " and " << data_comp.name() << " differ by more than " << sig << " standard deviations." << endl;
+  }
+}
+
+// Check compatibility for dataset datC
+for (int sig : {2, 3}){
+  list<Data> data_pro;
+  for(Data data : {datC, datD}){
+    data_pro.push_back(data);
+  }
+  auto it = data_pro.begin();
+
+  data_pro.erase(it);
+  advance(it, 1);
+  for (Data data_comp : data_pro){
+    int out = datB.checkCompatibility(data_comp, sig);
+    cout << out << " measurements from experiment " << datC.name() << " and " << data_comp.name() << " differ by more than " << sig << " standard deviations." << endl;
   }
 }
 
@@ -141,3 +172,10 @@ cout << "The chi2 value for the combined datasets is " << chi2_comp << "." << en
 
   return 0;
 }
+
+// for (Data data : {datA, datB, datC, datD}){
+//  data_pro.erase(it);
+//  advance(it, 1);
+//  for (Data data_comp : data_pro){
+//    int out = data.checkCompatibility(data_comp, sig);
+//    cout << out << " measurements from experiment " << data.name() << " and " << data_comp.name() << " differ by more than " << sig << " standard deviations." << endl;
