@@ -167,15 +167,9 @@ for(Data data : {datA, datB, datC, datD}){
 // Calculate chi2 value for combined dataset
 Data data_comb = datA + datB + datC + datD;
 double chi2_comp = data_comb.chi2();
+cout << "works" << endl;
 cout << "The chi2 value for the combined datasets is " << chi2_comp << "." << endl;
 
 
   return 0;
 }
-
-// for (Data data : {datA, datB, datC, datD}){
-//  data_pro.erase(it);
-//  advance(it, 1);
-//  for (Data data_comp : data_pro){
-//    int out = data.checkCompatibility(data_comp, sig);
-//    cout << out << " measurements from experiment " << data.name() << " and " << data_comp.name() << " differ by more than " << sig << " standard deviations." << endl;
