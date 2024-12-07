@@ -80,6 +80,11 @@ Data Data::operator+(Data& in){
   return out;
 }
 
+// Define function for background 
+double f(int x){
+  return 0.005 – 0.00001 * x + 0.08 + std::exp(- 0.015 * x)
+}
+
 // Define function for chi2 calculation
 double Data::chi2(){
   double out;
