@@ -89,7 +89,7 @@ double f(int x){
 double Data::chi2(){
   double out;
   for (int i = 0; i < this->size(); ++i){
-    double y = this->measurement(i) – f(this->bin-center(i));
+    double y = this->measurement(i) – f(this->binCenter(i));
     double sig = this->error(i);
     out += y * y / (sig * sig);
    }
