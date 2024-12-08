@@ -97,5 +97,5 @@ double Data::chi2(){
     double sig = this->error(i);
     out += y * y / (sig * sig);
   }
-  return out;
+  return out / 56;
 }
