@@ -73,6 +73,10 @@ int main() {
   Data datC("exp_C");
   Data datD("exp_D");
 
+  // create vector of datasets A, B, C, and D
+
+  vector<Data> datasets = {datA, datB, datC, datD};
+
   // here is the data from experiment A
   cout << "bin 27: from " << datA.binLow(27) << " to " << datA.binHigh(27)
        << endl;
@@ -100,6 +104,26 @@ int main() {
 
   // Check compatibility for experiment A and B in bin 27
   cout << "check_compatibility_single(A,B,27,1): " << datA.check_compatibility_single(datB, 27, 1) << endl;
+  cout << "******************************************************" << endl;
+
+  // Check compatibility for experiment A and C in bin 27
+  cout << "check_compatibility_single(A,C,27,1): " << datA.check_compatibility_single(datC, 27, 1) << endl;
+  cout << "******************************************************" << endl;
+
+  // Check compatibility for experiment A and D in bin 27
+  cout << "check_compatibility_single(A,D,27,1): " << datA.check_compatibility_single(datD, 27, 1) << endl;
+  cout << "******************************************************" << endl;
+
+  // Check compatibility for experiment B and C in bin 27
+  cout << "check_compatibility_single(B,C,27,1): " << datB.check_compatibility_single(datC, 27, 1) << endl;
+  cout << "******************************************************" << endl;
+
+  // Check compatibility for experiment B and D in bin 27
+  cout << "check_compatibility_single(B,D,27,1): " << datB.check_compatibility_single(datD, 27, 1) << endl;
+  cout << "******************************************************" << endl;
+
+  // Check compatibility for experiment C and D in bin 27
+  cout << "check_compatibility_single(C,D,27,1): " << datC.check_compatibility_single(datD, 27, 1) << endl;
   cout << "******************************************************" << endl;
   
   // Check compatibility for experiment A and B for 1 to 5 standard deviations
