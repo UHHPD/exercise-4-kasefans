@@ -64,7 +64,9 @@ void runTests() {
 int main() {
   using namespace std;
 
+  cout << "******************************************************" << endl;
   runTests();
+  cout << "******************************************************" << endl;
 
   // create objects which hold data of experiments A, B, C, and D
   Data datA("exp_A");
