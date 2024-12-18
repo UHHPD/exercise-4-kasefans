@@ -77,9 +77,10 @@ Data Data::operator+(Data& in){
     double y2 = in.measurement(i);
     
     out.m_data.push_back((w1 * y1 + w2 * y2) / (w1 + w2));
-    out.m_bins.push_back(in.binCenter(i));
+    out.m_bins.push_back(in.binLow(i));
     out.m_errors.push_back(std::sqrt(1 / (w1 + w2)));
   }
+  out.m_bins.push_back(in.binHigh(in.size()-1));
   return out;
 }
 
