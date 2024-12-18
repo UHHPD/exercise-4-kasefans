@@ -85,7 +85,7 @@ Data Data::operator+(Data& in){
 
 // Define function for background 
 double f(double x){
-  double out = 0.005 - 0.00001 * x + 0.08 + std::exp(- 0.015 * x);
+  double out = 0.005 - 0.00001 * x + 0.08 * std::exp(- 0.015 * x);
   return out;
 }
 
