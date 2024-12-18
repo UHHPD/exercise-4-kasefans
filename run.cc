@@ -2,6 +2,7 @@
 #include <vector>
 #include <functional>
 #include <string>
+#include <list>
 
 #include "Data.hh"
 
@@ -66,14 +67,126 @@ int main() {
   cout << "******************************************************" << endl;
   runTests();
   cout << "******************************************************" << endl;
-  // create an object which holds data of experiment A
+
+  // create objects which hold data of experiments A, B, C, and D
   Data datA("exp_A");
+  Data datB("exp_B");
+  Data datC("exp_C");
+  Data datD("exp_D");
+
+  // create vector of datasets A, B, C, and D
+
+  vector<Data> datasets = {datA, datB, datC, datD};
 
   // here is the data from experiment A
   cout << "bin 27: from " << datA.binLow(27) << " to " << datA.binHigh(27)
        << endl;
   cout << "measurement of experiment A in bin 27: " << datA.measurement(27)
        << endl;
+  
+  // here is the data from experiment B
+  cout << "bin 27: from " << datB.binLow(27) << " to " << datB.binHigh(27)
+       << endl;
+  cout << "measurement of experiment B in bin 27: " << datB.measurement(27)
+       << endl;
+  
+  // here is the data from experiment C
+  cout << "bin 27: from " << datC.binLow(27) << " to " << datC.binHigh(27)
+       << endl;
+  cout << "measurement of experiment C in bin 27: " << datC.measurement(27)
+       << endl;
+  
+  // here is the data from experiment D
+  cout << "bin 27: from " << datD.binLow(27) << " to " << datD.binHigh(27)
+       << endl;
+  cout << "measurement of experiment D in bin 27: " << datD.measurement(27)
+       << endl;
+  
+
+  // Check compatibility for experiment A and B in bin 27
+  cout << "check_compatibility_single(A,B,27,1): " << datA.check_compatibility_single(datB, 27, 1) << endl;
+
+  // Check compatibility for experiment A and C in bin 27
+  cout << "check_compatibility_single(A,C,27,1): " << datA.check_compatibility_single(datC, 27, 1) << endl;
+
+  // Check compatibility for experiment A and D in bin 27
+  cout << "check_compatibility_single(A,D,27,1): " << datA.check_compatibility_single(datD, 27, 1) << endl;
+
+  // Check compatibility for experiment B and C in bin 27
+  cout << "check_compatibility_single(B,C,27,1): " << datB.check_compatibility_single(datC, 27, 1) << endl;
+
+  // Check compatibility for experiment B and D in bin 27
+  cout << "check_compatibility_single(B,D,27,1): " << datB.check_compatibility_single(datD, 27, 1) << endl;
+  
+  // Check compatibility for experiment C and D in bin 27
+  cout << "check_compatibility_single(C,D,27,1): " << datC.check_compatibility_single(datD, 27, 1) << endl;
+  
+  // Check compatibility for experiment A and B for 1 to 5 standard deviations
+  cout << "checkCompatibility(A, B, 1) = " << datA.checkCompatibility(datB, 1) << endl;
+  cout << "checkCompatibility(A, B, 2) = " << datA.checkCompatibility(datB, 2) << endl;
+  cout << "checkCompatibility(A, B, 3) = " << datA.checkCompatibility(datB, 3) << endl;
+  cout << "checkCompatibility(A, B, 4) = " << datA.checkCompatibility(datB, 4) << endl;
+  cout << "checkCompatibility(A, B, 5) = " << datA.checkCompatibility(datB, 5) << endl;
+
+// Check compatibility for dataset datA
+for (int sig : {2, 3}){
+  list<Data> data_pro;
+  for(Data data : {datA, datB, datC, datD}){
+    data_pro.push_back(data);
+  }
+  auto it = data_pro.begin();
+
+  data_pro.erase(it);
+  advance(it, 1);
+  for (Data data_comp : data_pro){
+    int out = datA.checkCompatibility(data_comp, sig);
+    cout << out << " measurements from experiment " << datA.name() << " and " << data_comp.name() << " differ by more than " << sig << " standard deviations." << endl;
+  }
+}
+
+// Check compatibility for dataset datB
+for (int sig : {2, 3}){
+  list<Data> data_pro;
+  for(Data data : {datB, datC, datD}){
+    data_pro.push_back(data);
+  }
+  auto it = data_pro.begin();
+
+  data_pro.erase(it);
+  advance(it, 1);
+  for (Data data_comp : data_pro){
+    int out = datB.checkCompatibility(data_comp, sig);
+    cout << out << " measurements from experiment " << datB.name() << " and " << data_comp.name() << " differ by more than " << sig << " standard deviations." << endl;
+  }
+}
+
+// Check compatibility for dataset datC
+for (int sig : {2, 3}){
+  list<Data> data_pro;
+  for(Data data : {datC, datD}){
+    data_pro.push_back(data);
+  }
+  auto it = data_pro.begin();
+
+  data_pro.erase(it);
+  advance(it, 1);
+  for (Data data_comp : data_pro){
+    int out = datB.checkCompatibility(data_comp, sig);
+    cout << out << " measurements from experiment " << datC.name() << " and " << data_comp.name() << " differ by more than " << sig << " standard deviations." << endl;
+  }
+}
+
+// Calculate chi2 value for all datasets
+for(Data data : {datA, datB, datC, datD}){
+  double out = data.chi2();
+  cout << "The chi2 value for dataset " << data.name() << " is " << out << endl;
+}
+
+// Calculate chi2 value for combined dataset
+Data data_comb = datA + datB + datC + datD;
+double chi2_comp = data_comb.chi2();
+cout << "The chi2 value for the combined datasets is " << chi2_comp << "." << endl;
+
 
   return 0;
 }
